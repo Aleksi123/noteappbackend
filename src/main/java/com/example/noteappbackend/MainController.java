@@ -9,20 +9,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api")
 public class MainController {
   @Autowired
-  private UserRepository userRepository;
+  private NoteRepository noteRepository;
 
   @PostMapping(path = "/post")
-  public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email) {
+  public @ResponseBody
+  String addNewNote(@RequestParam String note) {
 
-    User n = new User();
-    n.setName(name);
-    n.setEmail(email);
-    userRepository.save(n);
+    Note n = new Note();
+    n.setNote(note);
+    noteRepository.save(n);
     return "Saved";
   }
 
-  @GetMapping(path = "/users")
-  public @ResponseBody Iterable<User> getAllUsers() {
-    return userRepository.findAll();
+  @GetMapping(path = "/notes")
+  public @ResponseBody
+  Iterable<Note> getAllNotes() {
+    return noteRepository.findAll();
   }
 }
